@@ -82,10 +82,6 @@ async def true_group_name(message: Message, state: FSMContext):
                          reply_markup=main_menu)
 
 
-# @dp.message_handler(state='*', commands='cancel')
-# @dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
-
-
 @dp.message_handler(text='Главное меню')
 async def show_main_menu(message: Message):
     text = 'Ты вернулся на главное меню.'

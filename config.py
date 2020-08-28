@@ -1,3 +1,5 @@
-TOKEN = '***'
+TOKEN = '1121017880:AAF0bjdjqn6xnKuhnFCwjyQidHm-Bfzisy4'
 
-ADMIN_ID = 0
+ADMIN_ID = 1014334488
+
+BOT_VERSION = 'v2020.08.28'

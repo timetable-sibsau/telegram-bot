@@ -2,4 +2,12 @@ TOKEN = '*'
 
 ADMIN_ID = 0
 
-BOT_VERSION = 'v2020.08.28'
+SUPPORT = '@'
+
+BOT_VERSION = 'v2020.08.31'
+
+DB_FILE = 'path'
+
+GROUPS_FILE = 'path'
+
+PATH_TO_TT_FILES = 'path'

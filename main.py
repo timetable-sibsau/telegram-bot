@@ -3,7 +3,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from config import TOKEN
+from config import TOKEN, DB_FILE
 from tinydb import TinyDB, Query
 
 
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 # data-base
-db = TinyDB('db.json')
+db = TinyDB(DB_FILE)
 User = Query()
 
 

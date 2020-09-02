@@ -5,7 +5,6 @@ from main import bot
 
 import requests
 
-
 from main import db, User
 from config import GROUPS_FILE, PATH_TO_TT_FILES
 

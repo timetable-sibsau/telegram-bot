@@ -2,7 +2,7 @@ TOKEN = 'test'
 
 ADMIN_ID = 1014334488
 
-SUPPORT = '@samstranger'
+SUPPORT = '@'
 
 BOT_VERSION = 'v2020.08.31'
 

@@ -6,7 +6,8 @@ from main import bot
 import requests
 
 from main import db, User
-from config import GROUPS_FILE, PATH_TO_TT_FILES
+from keyboards import main_menu
+from config import GROUPS_FILE, PATH_TO_TT_FILES, DOMAIN
 
 
 async def does_group_exist(user_id):
@@ -48,7 +49,7 @@ async def get_timetable(group_name):
     group_id_int = await get_group_api_id(group_name)
     group_id = str(group_id_int)
 
-    timetable_url = 'https://timetable.mysibsau.ru/timetable/' + group_id + '?format=json'
+    timetable_url = DOMAIN + 'timetable/' + group_id + '?format=json'
     response = requests.get(timetable_url)
     timetable = response.json()
 
@@ -95,14 +96,14 @@ async def get_current_day_info():
 
 
 async def check_week_status():
-    is_even_url = "https://timetable.mysibsau.ru/CurrentWeekIsEven/?format=json"
+    is_even_url = DOMAIN + 'CurrentWeek/?format=json'
     response = requests.get(is_even_url)
     week_status = response.json()
 
-    if week_status['isEven'] == 'True':
-        return True
-    else:
+    if week_status['week'] == 1:
         return False
+    else:
+        return True
 
 
 async def show_timetable_for_today(user_id, group_name):
@@ -154,6 +155,6 @@ async def show_timetable_for_today(user_id, group_name):
                 else:
                     super_text.append('2')
                 super_text.append('\n')
-        await bot.send_message(chat_id=user_id, text=''.join(super_text))
+        await bot.send_message(chat_id=user_id, text=''.join(super_text), reply_markup=main_menu)
     else:
         await bot.send_message(weekend_text)

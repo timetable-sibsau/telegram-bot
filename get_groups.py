@@ -1,10 +1,10 @@
 import requests
 import json
-from config import GROUPS_FILE
+from config import GROUPS_FILE, DOMAIN
 
 
 def get_groups():
-    groups_url = 'https://timetable.mysibsau.ru/groups/?format=json'
+    groups_url = DOMAIN + 'groups/?format=json'
 
     response = requests.get(groups_url)
     groups = response.json()

@@ -53,15 +53,21 @@ async def send_welcome(message: Message):
         await message.answer(text_for_new_user)
 
 
+@dp.message_handler(text='/update')
+async def update_bot(message: Message):
+    update_text = f'Бот обновлён до версии <b>{BOT_VERSION}</b>!'
+    await message.answer(update_text, reply_markup=main_menu)
+
+
 @dp.message_handler(text='/sendppbb')
 async def send_public_post(message: Message):
     text_to_admin = 'Чтобы сделать рассылку, оптравьте текст.'
     not_allowed = 'Вам это делать нельзя! ;)'
     if message.chat.id == ADMIN_ID:
         await Post.text.set()
-        await message.answer(text_to_admin)
+        await message.answer(text_to_admin, reply_markup=main_menu)
     else:
-        await message.answer(not_allowed)
+        await message.answer(not_allowed, reply_markup=main_menu)
 
 
 @dp.message_handler(state=Post.text)
@@ -72,14 +78,14 @@ async def got_text(message: Message, state: FSMContext):
                                f'Если хотите начать рассылку, отправьте ' \
                                f'<b>ДА</b>, для отмены - <b>НЕТ</b>.'
     await Post.confirm.set()
-    await message.answer(text_before_confirmation)
+    await message.answer(text_before_confirmation, reply_markup=main_menu)
 
 
 @dp.message_handler(lambda message: message.text.upper() == 'НЕТ', state=Post.confirm)
 async def cancel_publication(message: Message, state: FSMContext):
     await state.finish()
     cancellation_text = 'Действие отменено.'
-    await message.answer(cancellation_text)
+    await message.answer(cancellation_text, reply_markup=main_menu)
 
 
 @dp.message_handler(lambda message: message.text.upper() == 'ДА', state=Post.confirm)
@@ -90,7 +96,7 @@ async def publish(message: Message, state: FSMContext):
     async with state.proxy() as data:
         for user in users:
             try:
-                await bot.send_message(chat_id=user['id'], text=data['text'])
+                await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=main_menu)
                 counter += 1
             except:
                 pass
@@ -98,7 +104,7 @@ async def publish(message: Message, state: FSMContext):
     await state.finish()
     publication_ended_text = f'Рассылка закончена.\n\nВаше сообщение' \
                              f'отправлено <b>{counter}</b> пользователям.'
-    await bot.send_message(chat_id=ADMIN_ID, text=publication_ended_text)
+    await bot.send_message(chat_id=ADMIN_ID, text=publication_ended_text, reply_markup=main_menu)
 
 
 @dp.message_handler(lambda message: message.text == 'Отменить', state=UserInfo.group)
@@ -137,7 +143,7 @@ async def show_main_menu(message: Message):
     await message.answer(text, reply_markup=main_menu)
 
 
-@dp.message_handler(text='О боте')
+@dp.message_handler(text='ℹ️ О боте')
 async def show_statistics(message: Message):
     users = len(db)
     text = f'<b>О боте</b>\n\n' \
@@ -149,7 +155,7 @@ async def show_statistics(message: Message):
     await message.answer(text, reply_markup=main_menu)
 
 
-@dp.message_handler(text='Настройки')
+@dp.message_handler(text='⚙️ Настройки')
 async def show_settings(message: Message):
     text = 'Выбирайте действие.'
     await message.answer(text, reply_markup=settings_menu)
@@ -167,7 +173,7 @@ async def change_group(message: Message):
     await message.answer(text, reply_markup=changing_group_menu)
 
 
-@dp.message_handler(text='Раcписание на сегодня')
+@dp.message_handler(text='🚀 Раcписание')
 async def show_timetable(message: Message):
     current_user_id = message.chat.id
 

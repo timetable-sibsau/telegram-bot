@@ -130,4 +130,4 @@ dmypy.json
 
 # Special files
 drafts.py
-json_files/
+/json_files/

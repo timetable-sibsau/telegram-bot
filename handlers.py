@@ -1,4 +1,5 @@
 import re
+import time
 
 from tinydb.operations import set
 from main import bot, dp, db, User
@@ -96,7 +97,9 @@ async def publish(message: Message, state: FSMContext):
     async with state.proxy() as data:
         for user in users:
             try:
-                await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=main_menu)
+                if counter % 10 == 0:
+                    time.sleep(0.5)
+                    await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=main_menu)
                 counter += 1
             except:
                 pass
@@ -137,7 +140,7 @@ async def true_group_name(message: Message, state: FSMContext):
                          reply_markup=main_menu)
 
 
-@dp.message_handler(text='Главное меню')
+@dp.message_handler(text='🏠 Главное меню')
 async def show_main_menu(message: Message):
     text = 'Вы вернулись на главное меню.'
     await message.answer(text, reply_markup=main_menu)
@@ -152,7 +155,7 @@ async def show_statistics(message: Message):
            f'Если вам не удобно пользоваться ботом, ' \
            f'можете скачать мобильное приложение для Android ' \
            f'или iOS.'
-    await message.answer(text, reply_markup=main_menu)
+    await message.answer(text, reply_markup=settings_menu)
 
 
 @dp.message_handler(text='⚙️ Настройки')
@@ -161,7 +164,7 @@ async def show_settings(message: Message):
     await message.answer(text, reply_markup=settings_menu)
 
 
-@dp.message_handler(text='Изменить группу')
+@dp.message_handler(text='👥 Изменить группу')
 async def change_group(message: Message):
     current_user = db.search(User.id == message.chat.id)
     current_group = current_user[0]['group']

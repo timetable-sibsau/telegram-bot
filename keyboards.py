@@ -30,11 +30,11 @@ old_main_menu = ReplyKeyboardMarkup(
 settings_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text='Изменить группу'),
+            KeyboardButton(text='👥 Изменить группу'),
             KeyboardButton(text='ℹ️ О боте')
         ],
         [
-            KeyboardButton(text='Главное меню')
+            KeyboardButton(text='🏠 Главное меню')
         ]
     ],
     resize_keyboard=True

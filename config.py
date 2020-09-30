@@ -1,15 +1,17 @@
-TOKEN = 'test'
+import os
+from dotenv import load_dotenv
 
-ADMIN_ID = 1014334488
+# loading .env file content as a system environment variable
+load_dotenv()
 
-SUPPORT = '@'
-
-BOT_VERSION = 'v2020.08.31'
-
-DB_FILE = 'json_files/db/db.json'
-
-GROUPS_FILE = 'json_files/groups/groups.json'
-
-PATH_TO_TT_FILES = 'json_files/timetables/'
-
-DOMAIN = 'http://185.228.233.243/'
+# getting values from environment variable
+TOKEN = os.getenv('BOT_TOKEN')
+ADMIN_ID = os.getenv('ADMIN_ID')
+SUPPORT = os.getenv('SUPPORT_USERNAME')
+BOT_VERSION = os.getenv('BOT_VERSION')
+DB_FILE = os.getenv('DB_FILE_PATH')
+GROUPS_FILE = os.getenv('GROUPS_FILE_PATH')
+PATH_TO_TT_FILES = os.getenv('TIMETABLE_FILES_PATH')
+DOMAIN = os.getenv('DOMAIN_ADDRESS')
+# HEADERS = os.getenv('USER_AGENT_HEADERS')
+HEADERS = {'User-Agent': 'TELEGRAM-BOT from Windows 10 Local Server'}

@@ -1,12 +1,12 @@
 import requests
 import json
-from config import GROUPS_FILE, DOMAIN
+from config import GROUPS_FILE, DOMAIN, HEADERS
 
 
 def get_groups():
     groups_url = DOMAIN + 'groups/?format=json'
 
-    response = requests.get(groups_url)
+    response = requests.get(groups_url, headers=HEADERS)
     groups = response.json()
 
     try:

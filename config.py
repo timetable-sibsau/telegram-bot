@@ -14,4 +14,4 @@ GROUPS_FILE = os.getenv('GROUPS_FILE_PATH')
 PATH_TO_TT_FILES = os.getenv('TIMETABLE_FILES_PATH')
 DOMAIN = os.getenv('DOMAIN_ADDRESS')
 # HEADERS = os.getenv('USER_AGENT_HEADERS')
-HEADERS = {'User-Agent': 'TELEGRAM-BOT from Windows 10 Local Server'}
+HEADERS = {'User-Agent': 'Bot/1.0.0'}

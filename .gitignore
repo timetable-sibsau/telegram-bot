@@ -131,3 +131,4 @@ dmypy.json
 # Special files
 drafts.py
 /json_files/
+.idea

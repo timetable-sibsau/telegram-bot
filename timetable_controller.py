@@ -157,4 +157,4 @@ async def show_timetable_for_today(user_id, group_name):
                 super_text.append('\n')
         await bot.send_message(chat_id=user_id, text=''.join(super_text), reply_markup=main_menu)
     else:
-        await bot.send_message(weekend_text)
+        await bot.send_message(chat_id=user_id, text=weekend_text)

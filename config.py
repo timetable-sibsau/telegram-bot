@@ -6,7 +6,7 @@ load_dotenv()
 
 # getting values from environment variable
 TOKEN = os.getenv('BOT_TOKEN')
-ADMIN_ID = os.getenv('ADMIN_ID')
+ADMIN_ID = [1014334488, 593127562]
 SUPPORT = os.getenv('SUPPORT_USERNAME')
 BOT_VERSION = os.getenv('BOT_VERSION')
 DB_FILE = os.getenv('DB_FILE_PATH')

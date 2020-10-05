@@ -64,7 +64,7 @@ async def update_bot(message: Message):
 async def send_public_post(message: Message):
     text_to_admin = 'Чтобы сделать рассылку, оптравьте текст.'
     not_allowed = 'Вам это делать нельзя! ;)'
-    if message.chat.id == ADMIN_ID:
+    if message.chat.id in ADMIN_ID:
         await Post.text.set()
         await message.answer(text_to_admin, reply_markup=main_menu)
     else:
@@ -96,18 +96,16 @@ async def publish(message: Message, state: FSMContext):
     counter = 0
     async with state.proxy() as data:
         for user in users:
-            try:
-                if counter % 10 == 0:
-                    time.sleep(0.5)
-                    await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=main_menu)
-                counter += 1
-            except:
-                pass
+            print(user)
+            if counter % 10 == 0:
+                time.sleep(0.5)
+            await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=main_menu)
+            counter += 1
 
     await state.finish()
     publication_ended_text = f'Рассылка закончена.\n\nВаше сообщение' \
                              f'отправлено <b>{counter}</b> пользователям.'
-    await bot.send_message(chat_id=ADMIN_ID, text=publication_ended_text, reply_markup=main_menu)
+    await bot.send_message(chat_id=593127562, text=publication_ended_text, reply_markup=main_menu)
 
 
 @dp.message_handler(lambda message: message.text == 'Отменить', state=UserInfo.group)

@@ -86,7 +86,7 @@ async def get_current_day_info():
 
 
 async def check_week_status():
-    is_even_url = f'{DOMAIN}/CurrentWeek/'
+    is_even_url = f'{DOMAIN}CurrentWeek/'
     response = requests.get(is_even_url)
     week_status = response.json()
 

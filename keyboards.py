@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-main_menu = ReplyKeyboardMarkup(
+MAIN_MENU = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='🚀 Раcписание'),
@@ -12,22 +12,7 @@ main_menu = ReplyKeyboardMarkup(
 )
 
 
-old_main_menu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text='Раcписание на сегодня')
-        ],
-        [
-            KeyboardButton(text='Настройки'),
-            KeyboardButton(text='О боте')
-        ]
-    ],
-    resize_keyboard=True,
-    one_time_keyboard=False
-)
-
-
-settings_menu = ReplyKeyboardMarkup(
+SETTINGS_MENU = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='👥 Изменить группу'),
@@ -41,7 +26,7 @@ settings_menu = ReplyKeyboardMarkup(
 )
 
 
-changing_group_menu = ReplyKeyboardMarkup(
+CHANGING_GROUP_MENU = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Отменить')

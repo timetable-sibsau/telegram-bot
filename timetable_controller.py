@@ -6,14 +6,11 @@ from main import bot
 import requests
 
 from main import db, User
-from keyboards import main_menu
+from keyboards import MAIN_MENU
 from config import GROUPS_FILE, PATH_TO_TT_FILES, DOMAIN
 
 
-async def does_group_exist(user_id):
-    user = db.search(User.id == user_id)
-    user_group = user[0]['group']
-
+async def does_group_exist(user_group):
     with open(GROUPS_FILE, 'r') as file:
         groups = json.load(file)
 
@@ -46,16 +43,12 @@ async def get_timetable(group_name):
     response = requests.get(timetable_url)
     timetable = response.json()
 
-    
     with open(PATH_TO_TT_FILES + group_name + '.json', 'w+') as file:
         json.dump(timetable, file)
     return True
 
 
-async def does_timetable_exist(user_id):
-    user = db.search(User.id == user_id)
-    user_group = user[0]['group']
-
+async def does_timetable_exist(user_group):
     try:
         isfile(PATH_TO_TT_FILES + user_group + '.json')
         return True
@@ -100,7 +93,7 @@ async def show_timetable_for_today(user_id, group_name):
     current_day_info = await get_current_day_info()
     current_day_int, current_day_name = current_day_info
     is_week_even = await check_week_status()
-    
+
     message = ''
 
     weekend_text = 'Сегодня выходной, можете смело отдыхать!'
@@ -130,4 +123,4 @@ async def show_timetable_for_today(user_id, group_name):
             message += f'\n👥 <b>Подгруппа:</b> {SUPGROUP_NUM[subgroup["num"]]}'
             message += '\n'
 
-    await bot.send_message(chat_id=user_id, text=message, reply_markup=main_menu)
+    await bot.send_message(chat_id=user_id, text=message, reply_markup=MAIN_MENU)

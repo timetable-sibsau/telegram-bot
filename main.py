@@ -3,7 +3,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from config import TOKEN, DB_FILE
+from config import TOKEN, DB_FILE, FILE_LOGGING_MODE
 from tinydb import TinyDB, Query
 
 
@@ -11,7 +11,10 @@ storage = MemoryStorage()
 loop = asyncio.get_event_loop()
 bot = Bot(TOKEN, parse_mode='html')
 dp = Dispatcher(bot, loop=loop, storage=storage)
-logging.basicConfig(level=logging.INFO)
+if FILE_LOGGING_MODE:
+    logging.basicConfig(filename='bot.log', level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.INFO)
 
 
 # data-base

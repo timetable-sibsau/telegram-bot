@@ -12,7 +12,7 @@ def get_groups():
     try:
         with open(GROUPS_FILE, 'w+') as file:
             json.dump(groups, file)
-        success_result = f'Группы записаны в {GROUPS_FILE}.json!'
+        success_result = f'Группы записаны успешно в: {GROUPS_FILE}'
         return success_result
     except:
         fail_text = 'При записи данных произошла ошибка...'

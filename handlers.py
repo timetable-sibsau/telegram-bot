@@ -1,5 +1,6 @@
 import re
 import time
+import logging
 
 from tinydb.operations import set
 from main import bot, dp, db, User
@@ -25,14 +26,19 @@ class Post(StatesGroup):
 async def notify_admin(dp):
     text = f'<b>Бот запущен!</b>'
     try:
-        await bot.send_message(chat_id=ADMIN_ID, text=text)
+        for admin_id in ADMIN_ID:
+            await bot.send_message(chat_id=admin_id, text=text, reply_markup=main_menu)
     except:
-        pass
+        logging.info(f'У администратора {admin_id} бот остановлен.')
 
 
 async def bye_admin(dp):
-    text = f'<b>Прощай!</b>'
-    await bot.send_message(chat_id=ADMIN_ID, text=text)
+    text = f'<b>Бот остановлен!</b>'
+    try:
+        for admin_id in ADMIN_ID:
+            await bot.send_message(chat_id=admin_id, text=text, reply_markup=main_menu)
+    finally:
+        pass
 
 
 @dp.message_handler(commands='start')
@@ -60,7 +66,7 @@ async def update_bot(message: Message):
     await message.answer(update_text, reply_markup=main_menu)
 
 
-@dp.message_handler(text='/sendppbb')
+@dp.message_handler(text='/send_post')
 async def send_public_post(message: Message):
     text_to_admin = 'Чтобы сделать рассылку, оптравьте текст.'
     not_allowed = 'Вам это делать нельзя! ;)'

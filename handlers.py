@@ -28,6 +28,7 @@ async def notify_admin(dp):
     text = f'<b>Бот запущен!</b>'
     try:
         for admin_id in ADMIN_ID:
+            print(admin_id)
             await bot.send_message(chat_id=admin_id, text=text, reply_markup=MAIN_MENU)
     except:
         logging.info(f'У администратора {admin_id} бот остановлен.')
@@ -73,10 +74,12 @@ async def update_bot(message: Message):
 @dp.message_handler(text='/send_post')
 async def send_public_post(message: Message):
     """ Рассылка пользователям бота, пока только текстовое сообщение.
-    Данной командой могут воспользоваться только администраторы. """
+    Данной командой могут воспользоваться только администраторы.
+    Начинает цикл подготовки к рассылке."""
     text_to_admin = 'Чтобы сделать рассылку, оптравьте текст.'
     not_allowed = 'Вам это делать нельзя! ;)'
-    if message.chat.id in ADMIN_ID:
+
+    if str(message.chat.id) in ADMIN_ID:
         await Post.text.set()
         await message.answer(text_to_admin, reply_markup=MAIN_MENU)
     else:
@@ -114,7 +117,6 @@ async def publish(message: Message, state: FSMContext):
     counter = 0
     async with state.proxy() as data:
         for user in users:
-            print(user)
             if counter % 10 == 0:
                 time.sleep(0.5)
             await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=MAIN_MENU)

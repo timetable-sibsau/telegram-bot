@@ -28,7 +28,6 @@ async def notify_admin(dp):
     text = f'<b>Бот запущен!</b>'
     try:
         for admin_id in ADMIN_ID:
-            print(admin_id)
             await bot.send_message(chat_id=admin_id, text=text, reply_markup=MAIN_MENU)
     except:
         logging.info(f'У администратора {admin_id} бот остановлен.')

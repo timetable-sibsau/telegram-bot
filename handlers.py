@@ -118,12 +118,14 @@ async def publish(message: Message, state: FSMContext):
         for user in users:
             if counter % 10 == 0:
                 time.sleep(0.5)
-            await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=MAIN_MENU)
-            counter += 1
-
+            try:
+                await bot.send_message(chat_id=user['id'], text=data['text'], reply_markup=MAIN_MENU)
+            except:
+                counter += 1
+    all_users = len(db)
     await state.finish()
     publication_ended_text = f'Рассылка закончена.\n\n' \
-                             f'Ваше сообщение отправлено <b>{counter}</b> пользователям.'
+                             f'Ваше сообщение отправлено <b>{all_users - counter}</b> пользователям.'
     await message.answer(publication_ended_text, reply_markup=MAIN_MENU)
 
 

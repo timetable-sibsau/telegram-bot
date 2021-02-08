@@ -8,7 +8,7 @@ chardet==3.0.4
 environs==8.0.0
 idna==2.10
 marshmallow==3.8.0
-multidict==4.7.6
+multidict==5.1.0
 python-dotenv==0.14.0
 pytz==2020.1
 requests==2.24.0

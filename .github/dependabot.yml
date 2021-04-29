@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "22:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: aiogram
+    versions:
+    - 2.11.2
+    - "2.12"
+    - 2.12.1
+  - dependency-name: babel
+    versions:
+    - 2.9.0
+  - dependency-name: urllib3
+    versions:
+    - 1.26.3
